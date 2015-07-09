@@ -1,3 +1,5 @@
+Bases on tn older version of tutum-docker-influxdb with some small changes
+
 tutum-docker-influxdb
 =====================
 InfluxDB image
