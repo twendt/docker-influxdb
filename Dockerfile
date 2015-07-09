@@ -1,8 +1,11 @@
-FROM tutum/curl:trusty
-MAINTAINER Feng Honglin <hfeng@tutum.co>
+FROM ubuntu:trusty
+MAINTAINER Timo Wendt
+
+RUN apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists
+RUN apt-get -qqy upgrade
 
 # Install InfluxDB
-ENV INFLUXDB_VERSION 0.8.7
+ENV INFLUXDB_VERSION latest
 RUN curl -s -o /tmp/influxdb_latest_amd64.deb https://s3.amazonaws.com/influxdb/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
   dpkg -i /tmp/influxdb_latest_amd64.deb && \
   rm /tmp/influxdb_latest_amd64.deb && \
@@ -15,6 +18,7 @@ RUN chmod +x /*.sh
 ENV PRE_CREATE_DB **None**
 ENV SSL_SUPPORT **False**
 ENV SSL_CERT **None**
+ENV FORCE_HOSTNAME vmhost
 
 # Admin server
 EXPOSE 8083
